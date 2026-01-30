@@ -1,0 +1,33 @@
+# Main Sway configuration file
+# This file only includes modular configuration files
+
+include ~/.config/sway/variables.conf
+include ~/.config/sway/output.conf
+include ~/.config/sway/input.conf
+include ~/.config/sway/autostart.conf
+include ~/.config/sway/keybindings.conf
+include ~/.config/sway/modes.conf
+include ~/.config/sway/utilities.conf
+include ~/.config/sway/bar.conf
+
+# Load system-wide configs last (if any)
+include /etc/sway/config.d/*
+
+# Wallpaper (swaybg)
+exec ~/.config/sway/modules/swaybg.sh
+exec ~/.config/sway/modules/swayidle.sh
+
+# Cores das janelas
+#client.focused          #2587cc #263640 #ffffff #696ebf #2587cc
+client.focused          #2587cc #2587cc #000000 #2587cc #2587cc
+client.focused_inactive #263640 #263640 #93a1a1 #263640 #263640
+client.unfocused        #263640 #263640 #93a1a1 #263640 #263640
+client.urgent           #263640 #d12f2c #ffffff #263640 #263640
+client.placeholder      #263640 #263640 #93a1a1 #263640 #263640
+
+# Fonts
+font pango:Inter 8, Ionicons 8
+
+# Gaps e bordas
+gaps inner 12
+smart_gaps on
