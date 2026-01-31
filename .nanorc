@@ -1,0 +1,14 @@
+## numeração de linhas
+set linenumbers
+
+## tab real (não vira espaço)
+set tabsize 4
+
+## indentação automática
+set autoindent
+
+## barra de status
+set constantshow
+
+## syntax highlight
+include /usr/share/nano/*.nanorc
