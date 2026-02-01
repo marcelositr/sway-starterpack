@@ -1,10 +1,18 @@
 #!/usr/bin/env bash
 
-root=$(df -h / | awk 'NR==2 {print $3}')
+MODULE_NAME="disk_root_data"
+TEXT=""
+COLOR="#FFFFFF"
+BG="#0E1A3A"
 
-echo "{
-  \"name\":\"disk_root_data\",
-  \"full_text\":\"$root  \",
-  \"background\":\"#0E1A3A\",
-  \"color\":\"#FFFFFF\"
-}"
+collect() {
+    TEXT=$(df -h / | awk 'NR==2{print $3}')
+}
+
+render() {
+cat <<EOF
+{"name":"$MODULE_NAME","full_text":"$TEXT  ","background":"$BG","color":"$COLOR"}
+EOF
+}
+
+collect; render

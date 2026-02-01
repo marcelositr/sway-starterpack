@@ -1,16 +1,24 @@
 #!/usr/bin/env bash
-#
 # swaybg module
 # Responsible only for setting wallpapers
-# Safe to be reloaded with exec_always
-#
+# Reload-safe
 
-# Kill previous instances
-pkill -xu "$USER" swaybg 2>/dev/null
+set -euo pipefail
 
+# =========================
+# CONFIG
+# =========================
 WALLPAPER="$HOME/.local/share/wallpaper/.wallpaper.png"
 
+# =========================
+# PRE-CHECK
+# =========================
 [ -f "$WALLPAPER" ] || exit 0
+
+# =========================
+# EXECUTION
+# =========================
+pkill -xu "$USER" swaybg 2>/dev/null || true
 
 exec swaybg \
     -o '*' \

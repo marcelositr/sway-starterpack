@@ -1,29 +1,49 @@
-#!/bin/bash
-# Module Master Script
-# Executes all individual swaymsg modules
+#!/usr/bin/env bash
+# SWAY DEBUG MASTER
+# Read-only inspection tool
 
-BASE="$HOME/.config/sway/modules"
+set -euo pipefail
 
-echo "== SWAY Version =="
-"$BASE/01_version.sh"
+# =========================
+# CONFIG
+# =========================
+DATE_CMD="date"
+JQ_CMD="jq"
 
-echo -e "\n== Outputs =="
-"$BASE/02_outputs.sh"
+# =========================
+# HELPERS
+# =========================
+section() {
+    echo
+    echo "== $1 =="
+}
 
-echo -e "\n== Inputs =="
-"$BASE/03_inputs.sh"
+# =========================
+# MAIN
+# =========================
+echo "===== SWAY DEBUG DUMP ====="
+$DATE_CMD
 
-echo -e "\n== Workspaces =="
-"$BASE/04_workspaces.sh"
+section "Version"
+swaymsg -t get_version
 
-echo -e "\n== Seats =="
-"$BASE/05_seats.sh"
+section "Outputs"
+swaymsg -t get_outputs -r | $JQ_CMD
 
-echo -e "\n== Marks =="
-"$BASE/06_marks.sh"
+section "Inputs"
+swaymsg -t get_inputs -r | $JQ_CMD
 
-echo -e "\n== Binding Modes =="
-"$BASE/07_modes.sh"
+section "Workspaces"
+swaymsg -t get_workspaces -r | $JQ_CMD
 
-echo -e "\n== Events (Ctrl+C to stop) =="
-"$BASE/08_events.sh"
+section "Seats"
+swaymsg -t get_seats -r | $JQ_CMD
+
+section "Binding Modes"
+swaymsg -t get_binding_state -r
+
+section "Tree (containers/layouts)"
+swaymsg -t get_tree -r | $JQ_CMD
+
+echo
+echo "== End of dump =="

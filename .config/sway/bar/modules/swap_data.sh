@@ -1,16 +1,22 @@
 #!/usr/bin/env bash
 
-swap_total=$(awk '/SwapTotal/ {print $2}' /proc/meminfo)
-swap_free=$(awk '/SwapFree/ {print $2}' /proc/meminfo)
+MODULE_NAME="swap_data"
+TEXT=""
+COLOR="#FFFFFF"
+BG="#0E1A3A"
 
-[ "$swap_total" -eq 0 ] && exit 0
+collect() {
+    total=$(awk '/SwapTotal/ {print $2}' /proc/meminfo)
+    free=$(awk '/SwapFree/ {print $2}' /proc/meminfo)
+    [ "$total" -eq 0 ] && exit 0
+    used=$((total-free))
+    TEXT=$(awk "BEGIN{printf \"%.1f GiB\",$used/1024/1024}")
+}
 
-used=$((swap_total-swap_free))
-swap=$(awk "BEGIN { printf \"%.1f GiB\", $used/1024/1024 }")
+render() {
+cat <<EOF
+{"name":"$MODULE_NAME","full_text":"$TEXT  ","background":"$BG","color":"$COLOR"}
+EOF
+}
 
-echo "{
-  \"name\":\"swap_data\",
-  \"full_text\":\"$swap  \",
-  \"background\":\"#0E1A3A\",
-  \"color\":\"#FFFFFF\"
-}"
+collect; render

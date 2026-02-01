@@ -1,11 +1,19 @@
 #!/usr/bin/env bash
 
-export LC_TIME=pt_BR.UTF-8
-date=$(date '+%d %b %H:%M')
+MODULE_NAME="time_data"
+TEXT=""
+COLOR="#FFFFFF"
+BG="#0E1A3A"
 
-echo "{
-  \"name\":\"time_data\",
-  \"full_text\":\"$date  \",
-  \"background\":\"#0E1A3A\",
-  \"color\":\"#FFFFFF\"
-}"
+collect() {
+    export LC_TIME=pt_BR.UTF-8
+    TEXT=$(date '+%d %b %H:%M')
+}
+
+render() {
+cat <<EOF
+{"name":"$MODULE_NAME","full_text":"$TEXT  ","background":"$BG","color":"$COLOR"}
+EOF
+}
+
+collect; render

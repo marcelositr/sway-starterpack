@@ -1,17 +1,25 @@
 #!/usr/bin/env bash
-#
 # swayidle module
-# Responsible only for idle / sleep handling
-# Locking is delegated to swaylock module
-#
+# Idle / power handling
+# Lock delegated to swaylock module
 
+set -euo pipefail
+
+# =========================
+# CONFIG
+# =========================
 LOCK_CMD="$HOME/.config/sway/modules/swaylock.sh"
 
-# Kill any previous swayidle instances (reload-safe)
-pkill -xu "$USER" swayidle 2>/dev/null
+TIME_LOCK=300
+TIME_DPMS=600
 
-swayidle -w \
-    timeout 300 "$LOCK_CMD" \
-    timeout 600 'swaymsg "output * power off"' \
+# =========================
+# EXECUTION
+# =========================
+pkill -xu "$USER" swayidle 2>/dev/null || true
+
+exec swayidle -w \
+    timeout "$TIME_LOCK" "$LOCK_CMD" \
+    timeout "$TIME_DPMS" 'swaymsg "output * power off"' \
     resume 'swaymsg "output * power on"' \
     before-sleep "$LOCK_CMD"

@@ -1,30 +1,27 @@
 #!/usr/bin/env bash
 
-iface=$(ip route | awk '/default/ {print $5}' | head -n1)
-[ -z "$iface" ] && exit 0
+MODULE_NAME="net_data"
+TEXT=""
+COLOR="#FFFFFF"
+BG="#0E1A3A"
 
-state=$(cat /sys/class/net/$iface/operstate)
+collect() {
+    iface=$(ip route | awk '/default/{print $5;exit}')
+    [ -z "$iface" ] && exit 0
+    state=$(cat /sys/class/net/$iface/operstate)
 
-if [ "$state" != "up" ]; then
-  echo "{
-    \"name\":\"net_data\",
-    \"full_text\":\" down  \",
-    \"background\":\"#0E1A3A\",
-    \"color\":\"#FF3B3B\"
-  }"
-  exit 0
-fi
+    if [ "$state" != "up" ]; then
+        TEXT="down"
+        COLOR="#FF3B3B"
+    else
+        TEXT="up"
+    fi
+}
 
-if [ -d "/sys/class/net/$iface/wireless" ]; then
-  ssid=$(iw dev "$iface" link | awk -F': ' '/SSID/ {print $2}')
-  txt=${ssid:-up}
-else
-  txt="up"
-fi
+render() {
+cat <<EOF
+{"name":"$MODULE_NAME","full_text":"$TEXT  ","background":"$BG","color":"$COLOR"}
+EOF
+}
 
-echo "{
-  \"name\":\"net_data\",
-  \"full_text\":\"$txt  \",
-  \"background\":\"#0E1A3A\",
-  \"color\":\"#FFFFFF\"
-}"
+collect; render

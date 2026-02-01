@@ -5,4 +5,3 @@ echo '{
   "background":"#8363AF",
   "color":"#FFFFFF"
 }'
-

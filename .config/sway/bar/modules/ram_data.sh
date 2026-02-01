@@ -1,14 +1,21 @@
 #!/usr/bin/env bash
 
-mem_total=$(awk '/MemTotal/ {print $2}' /proc/meminfo)
-mem_avail=$(awk '/MemAvailable/ {print $2}' /proc/meminfo)
-used=$((mem_total-mem_avail))
+MODULE_NAME="ram_data"
+TEXT=""
+COLOR="#FFFFFF"
+BG="#0E1A3A"
 
-ram=$(awk "BEGIN { printf \"%.1f GiB\", $used/1024/1024 }")
+collect() {
+    total=$(awk '/MemTotal/ {print $2}' /proc/meminfo)
+    avail=$(awk '/MemAvailable/ {print $2}' /proc/meminfo)
+    used=$((total-avail))
+    TEXT=$(awk "BEGIN{printf \"%.1f GiB\",$used/1024/1024}")
+}
 
-echo "{
-  \"name\":\"ram_data\",
-  \"full_text\":\"$ram  \",
-  \"background\":\"#0E1A3A\",
-  \"color\":\"#FFFFFF\"
-}"
+render() {
+cat <<EOF
+{"name":"$MODULE_NAME","full_text":"$TEXT  ","background":"$BG","color":"$COLOR"}
+EOF
+}
+
+collect; render
