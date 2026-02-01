@@ -140,7 +140,8 @@ This choice is intentional to keep the environment minimal and transparent.
 - `ttf-ionicons` (include dot files)
 
 ```bash
-sway wayland wlroots xorg-xwayland dbus seatd foot dmenu bash jq iproute2 util-linux pipewire pipewire-pulse wireplumber libpulse grim swaybg swayidle swaylock brightnessctl bluez bluez-utils inter-font firefox thunar
+sudo pacman -Syu
+sudo pacman -S sway wayland wlroots xorg-xwayland dbus seatd foot dmenu bash jq iproute2 util-linux pipewire pipewire-pulse wireplumber libpulse grim swaybg swayidle swaylock brightnessctl bluez bluez-utils inter-font firefox thunar
 ```
 
 ---
