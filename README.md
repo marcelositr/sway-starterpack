@@ -8,6 +8,14 @@ The goal of this project is **clarity, predictability, and long‑term maintaina
 
 This configuration is suitable both for **daily use** and as a **reference implementation** for users who want to understand Sway internals without unnecessary complexity.
 
+![preview 1](https://raw.githubusercontent.com/marcelositr/sway-starterpack/blob/main/img/001.png) <br />
+
+![preview 2](https://raw.githubusercontent.com/marcelositr/sway-starterpack/blob/main/img/002.png) <br />
+
+![preview 3](https://raw.githubusercontent.com/marcelositr/sway-starterpack/blob/main/img/003.png) <br />
+
+![preview 4](https://raw.githubusercontent.com/marcelositr/sway-starterpack/blob/main/img/004.png) <br />
+
 ---
 
 ## Design Principles
