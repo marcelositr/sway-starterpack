@@ -17,13 +17,23 @@ include /etc/sway/config.d/*
 exec ~/.config/sway/modules/swaybg.sh
 exec ~/.config/sway/modules/swayidle.sh
 
-# Cores das janelas
-#client.focused          #2587cc #263640 #ffffff #696ebf #2587cc
-client.focused          #2587cc #2587cc #000000 #2587cc #2587cc
-client.focused_inactive #263640 #263640 #93a1a1 #263640 #263640
-client.unfocused        #263640 #263640 #93a1a1 #263640 #263640
-client.urgent           #263640 #d12f2c #ffffff #263640 #263640
-client.placeholder      #263640 #263640 #93a1a1 #263640 #263640
+# =========================
+# Cores das janelas (neutras + contraste)
+# =========================
+
+# Neutros derivados do azul (#2F7BFF)
+# Fundo principal:  #0E1A3A
+# Fundo secundário: #16285A
+# Texto claro:      #EAEFFF
+# Texto opaco:      #A9B7E6
+# Foco:             #2F7BFF
+# Urgente:          #FF3B3B
+
+client.focused          #2F7BFF #0E1A3A #EAEFFF #2F7BFF #2F7BFF
+client.focused_inactive #16285A #0E1A3A #A9B7E6 #16285A #16285A
+client.unfocused        #16285A #0E1A3A #A9B7E6 #16285A #16285A
+client.urgent           #FF3B3B #0E1A3A #EAEFFF #FF3B3B #FF3B3B
+client.placeholder      #16285A #0E1A3A #A9B7E6 #16285A #16285A
 
 # Fonts
 font pango:Inter 8, Ionicons 8

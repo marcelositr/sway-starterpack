@@ -11,9 +11,18 @@ first=1
 while :; do
     blocks=()
 
-    for mod in \
-        cpu temp ram swap disk network bluetooth volume battery datetime
-    do
+for mod in \
+  cpu_icon cpu_data \
+  temp_icon temp_data \
+  ram_icon ram_data \
+  swap_icon swap_data \
+  disk_root_icon disk_root_data \
+  disk_home_icon disk_home_data \
+  network_icon network_data \
+  bluetooth_icon bluetooth_data \
+  volume_icon volume_data \
+  datetime_icon datetime_data
+do
         out="$("$MOD_DIR/$mod.sh" 2>/dev/null)"
         [ -n "$out" ] && blocks+=("$out")
     done

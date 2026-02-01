@@ -8,7 +8,7 @@
 # Kill previous instances
 pkill -xu "$USER" swaybg 2>/dev/null
 
-WALLPAPER="$HOME/.local/share/wallpaper/wallpaper.png"
+WALLPAPER="$HOME/.local/share/wallpaper/.wallpaper.png"
 
 [ -f "$WALLPAPER" ] || exit 0
 
